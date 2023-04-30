@@ -26,10 +26,11 @@ public class Deck {
     private void cutDeck() {
         Random r = new Random(System.currentTimeMillis());
         ArrayList<String> newdeck = new ArrayList<String>();
-        int cutIndex = r.nextInt(51)+1;  //for setting the point to cut.
+        int size = deck.size();
+        int cutIndex = r.nextInt(size-1)+1;  //for setting the point to cut.
         System.out.println(cutIndex);
-        for(int i = 0; i<52; i++){
-            newdeck.add(this.deck.get(i<52-cutIndex ? cutIndex+i: i-(52-cutIndex)));
+        for(int i = 0; i<size; i++){
+            newdeck.add(this.deck.get(i<size-cutIndex ? cutIndex+i: i-(size-cutIndex)));
         }
         this.deck = newdeck;    
     }
