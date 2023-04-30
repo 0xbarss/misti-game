@@ -15,7 +15,20 @@ public class Player {
     public ArrayList<String> getStoredCards() {return this.storedCards;}
     public int getScore() {return this.score;}
 
-    public void addCard(String card) {}
-    public void addCards(ArrayList<String> cards) {} // storedCards.addAll(cards)
-    public void addScore(int score) {this.score += score;}
+
+    public void addtoHand(String card) {hand.add(card);}
+    public void updateScore(ArrayList<String> cards, Score s) {
+        int score  = 0;
+        for(String i: cards){
+            score += s.getCardPoint(i);
+        }
+        if(cards.size() == 2) score = score*5;
+        this.score += score;
+    }
+    public void addtoStoredCards(ArrayList<String> cards, Board b, Score s) {  //takes cards and board as an argument
+        updateScore(cards, s);   //updates the score of the player.
+        storedCards.addAll(cards);   //adds the taken cards to storedcards.
+        b.clearBoard();              //cleans the board.
+    }
+    
 }
