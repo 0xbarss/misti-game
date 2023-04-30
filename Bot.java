@@ -1,12 +1,16 @@
 import java.util.ArrayList;
 
 public class Bot extends Player {
-    private int level;
+    private int level; // | 0->Novice | 1-> Regular | 2->Expert |
     private ArrayList<String> memory;
 
-    public Bot() {
-
+    public Bot(int level) {
+        super();
+        this.level = level;
+        this.memory = new ArrayList<String>();
     }
+
+    public int getLevel() {return this.level;}
     
     private String novicePlay() {}
     private String regularPlay() {}
