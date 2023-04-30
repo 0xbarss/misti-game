@@ -6,8 +6,14 @@ public class Player {
     private int score;
 
     public Player() {
-
+        this.hand = new ArrayList<String>();
+        this.storedCards = new ArrayList<String>();
+        this.score = 0;
     }
+
+    public ArrayList<String> getHand() {return this.hand;}
+    public ArrayList<String> getStoredCards() {return this.storedCards;}
+    public int getScore() {return this.score;}
 
     public void addCard(String card) {}
     public void addCards(ArrayList<String> cards) {} // storedCards.addAll(cards)
