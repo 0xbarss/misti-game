@@ -1,7 +1,8 @@
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Bot extends Player {
-    private int level; // | 0->Novice | 1-> Regular | 2->Expert |
+    private int level; // | 1->Novice | 2-> Regular | 3->Expert |
     private ArrayList<String> memory;
 
     public Bot(int level) {
@@ -12,7 +13,13 @@ public class Bot extends Player {
 
     public int getLevel() {return this.level;}
     
-    private String novicePlay() {}
+    private String novicePlay() {
+        Random r = new Random(System.currentTimeMillis());
+        int card_index = r.nextInt(this.hand.size());
+        String card = this.hand.get(card_index);
+        this.hand.remove(card_index);
+        return card;
+    }
     private String regularPlay() {}
     private String expertPlay() {}
     public String play() {

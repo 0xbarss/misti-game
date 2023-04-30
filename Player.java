@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Player {
-    private ArrayList<String> hand;
-    private ArrayList<String> storedCards;
-    private int score;
+    protected ArrayList<String> hand;
+    protected ArrayList<String> storedCards;
+    protected int score;
 
     public Player() {
         this.hand = new ArrayList<String>();
