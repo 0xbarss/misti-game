@@ -8,7 +8,9 @@ public class Bot extends Player {
     public Bot(int level) {
         super();
         this.level = level;
-        this.memory = new ArrayList<String>();
+        if (this.level == 2) {
+            this.memory = new ArrayList<String>();
+        }
     }
 
     public int getLevel() {return this.level;}
@@ -59,6 +61,7 @@ public class Bot extends Player {
                 }
             }
         }
+        this.hand.remove(selectedCard);
         return selectedCard;
     }
     private String expertPlay() {}
