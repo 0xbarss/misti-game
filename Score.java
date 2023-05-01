@@ -12,6 +12,7 @@ public class Score {
         this.setCardValues(readFile(path));
     }
 
+
     public static ArrayList<String> readFile(String path) {
         ArrayList<String> lines = new ArrayList<String>();
         try {
