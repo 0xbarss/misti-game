@@ -5,6 +5,6 @@ public class Human extends Player {
     }
 
     public String play() {
-        
+        return "";
     }
 }

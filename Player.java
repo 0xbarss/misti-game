@@ -30,5 +30,5 @@ public class Player {
         storedCards.addAll(cards);   //adds the taken cards to storedcards.
         b.clearBoard();              //cleans the board.
     }
-    
+
 }
