@@ -28,7 +28,6 @@ public class Deck {
         ArrayList<String> newdeck = new ArrayList<String>();
         int size = deck.size();
         int cutIndex = r.nextInt(size-1)+1;  //for setting the point to cut.
-        System.out.println(cutIndex);
         for(int i = 0; i<size; i++){
             newdeck.add(this.deck.get(i<size-cutIndex ? cutIndex+i: i-(size-cutIndex)));
         }
