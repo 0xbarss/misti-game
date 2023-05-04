@@ -15,6 +15,14 @@ public class Player {
     public ArrayList<String> getStoredCards() {return this.storedCards;}
     public int getScore() {return this.score;}
 
+    public void printHand() {
+        System.out.println("--- Hand ---");
+        for (int i=0; i<this.hand.size(); i++) {
+            System.out.println((i+1)+"-"+this.hand.get(i));
+        }
+        System.out.println("--- **** ---");
+    }
+
     public void addtoHand(String card) {hand.add(card);}
     public void updateScore(ArrayList<String> cards, Score s) {
         int score  = 0;
