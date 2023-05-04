@@ -6,17 +6,15 @@ public class Deck {
     private final char[] suits = {'S', 'C', 'H', 'D'};
     private final char[] ranks = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
     private ArrayList<String> deck;
-
-    public ArrayList<String> getDeck() {
-        return deck;
-    }
-
+    
     public Deck() {
         deck = new ArrayList<String>();
         createDeck();
         Collections.shuffle(deck);
         cutDeck();
     }
+    
+    public ArrayList<String> getDeck() {return deck;}
     
     public void createDeck() {
         for(char s: suits){

@@ -15,7 +15,6 @@ public class Player {
     public ArrayList<String> getStoredCards() {return this.storedCards;}
     public int getScore() {return this.score;}
 
-
     public void addtoHand(String card) {hand.add(card);}
     public void updateScore(ArrayList<String> cards, Score s) {
         int score  = 0;
@@ -29,6 +28,10 @@ public class Player {
         updateScore(cards, s);   //updates the score of the player.
         storedCards.addAll(cards);   //adds the taken cards to storedcards.
         b.clearBoard();              //cleans the board.
+    }
+
+    public String play(Score score, ArrayList<String> boardCards) {
+        return "";
     }
 
 }

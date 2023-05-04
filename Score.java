@@ -57,10 +57,10 @@ public class Score {
             card_value = Integer.parseInt(i.split(" ")[1]);
             if(card.equals(valuable_card)) return card_value;  
         }
-
+        return 1;
     }
 
     public static void printScores(ArrayList<Player> players) {}
-    public static int calculateScore(ArrayList<String> cards) {}
+    public static int calculateScore(ArrayList<String> cards) {return 0;}
 
 }
