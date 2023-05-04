@@ -2,18 +2,20 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Bot extends Player {
-    private int level; // | 1->Novice | 2-> Regular | 3->Expert |
+    private enum Level {NOVICE, REGULAR, EXPERT}
+    private Level level;
     private ArrayList<String> memory;
 
     public Bot(int level) {
         super();
-        this.level = level;
-        if (this.level == 2) {
+        this.level = Level.values()[level-1];
+        if (this.level == Level.EXPERT) {
             this.memory = new ArrayList<String>();
         }
     }
 
-    public int getLevel() {return this.level;}
+    public Level getLevel() {return this.level;}
+    public void addToMemory(String card) {this.memory.add(card);}
     
     private String novicePlay() {
         Random r = new Random(System.currentTimeMillis());
@@ -36,15 +38,15 @@ public class Bot extends Player {
         boolean selected = false;
         for (String card: this.hand) {
             currentCardValue = score.getCardPoint(card);
-            if (card.charAt(1) == 'J' && currentCardValue > selectedCardValue) {
-                if (currentCardValue + boardCardsValue > 0) {
+            if (card.charAt(1) == 'J' && currentCardValue > selectedCardValue) { // Play J if it exists and has more points than others
+                if (currentCardValue + boardCardsValue > 0) { // Select the card if the total value of the cards on the board is positive
                     selectedCard = card;
                     selectedCardValue = currentCardValue;
                     selected = true;
                 }
             }
-            else if ((card.charAt(0) == lastCardOnBoard.charAt(0) || card.charAt(1) == lastCardOnBoard.charAt(1)) && currentCardValue > selectedCardValue) {
-                if (currentCardValue + boardCardsValue > 0) {
+            else if (card.charAt(1) == lastCardOnBoard.charAt(1) && currentCardValue > selectedCardValue) { // Play a suitable card if it has more points than others
+                if (currentCardValue + boardCardsValue > 0) { // Select the card if the total value of the cards on the board is positive
                     selectedCard = card;
                     selectedCardValue = currentCardValue;
                     selected = true;
@@ -64,18 +66,21 @@ public class Bot extends Player {
         this.hand.remove(selectedCard);
         return selectedCard;
     }
-    private String expertPlay() {}
-    public String play() {
+    private String expertPlay(Score score, ArrayList<String> boardCards) {
+        return "";
+    }
+    @Override
+    public String play(Score score, ArrayList<String> boardCards) {
         String card = "";
         switch (this.level) {
-            case 1:
+            case NOVICE:
                 card = novicePlay();
                 break;
-            case 2:
-                card = regularPlay();
+            case REGULAR:
+                card = regularPlay(score, boardCards);
                 break;
-            case 3:
-                card = expertPlay();
+            case EXPERT:
+                card = expertPlay(score, boardCards);
                 break;
         }
         return card;
