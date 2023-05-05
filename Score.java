@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Score {
@@ -12,30 +11,20 @@ public class Score {
         this.setCardValues(readFile(path));
     }
 
-
     public static ArrayList<String> readFile(String path) {
+        Scanner scanner;
         ArrayList<String> lines = new ArrayList<String>();
         try {
             //insert txt path
-            Scanner scanner = new Scanner(new File("points.txt"));
-            int numLines = 0;
+            scanner = new Scanner(new File(path));
             while (scanner.hasNextLine()) {
-                numLines++;
-                scanner.nextLine();
-            }
-            scanner.close();
-            //insert txt path
-            scanner = new Scanner(new File("points.txt"));
-            int index = 0;
-            while (scanner.hasNextLine()) {
-                lines.add(Arrays.toString(scanner.nextLine().split("\n")));
-                index++;
+                lines.add(scanner.nextLine());
             }
             scanner.close();
             //Print the points
-            for (String line : lines) {
-                System.out.println(line);
-            }
+            //for (String line : lines) {
+            //    System.out.println(line);
+            //}
             return lines;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -43,19 +32,15 @@ public class Score {
         return lines;
     }
 
+    public void setCardValues(ArrayList<String> points)   {}
 
-    public void setCardValues(ArrayList<String> points)   {
-
-
-    }
-    
     public int getCardPoint(String card){
         String valuable_card = "";    //one of cards in cardvalues
         int card_value = 0;    //value of that card
-        for(String i: this.cardsValues){  
+        for(String i: this.cardsValues){
             valuable_card = i.split(" ")[0];
             card_value = Integer.parseInt(i.split(" ")[1]);
-            if(card.equals(valuable_card)) return card_value;  
+            if(card.equals(valuable_card)) return card_value;
         }
         return 1;
     }
