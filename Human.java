@@ -5,10 +5,9 @@ public class Human extends Player {
     private String nickname;
 
     public Human(String nickname) {
-        super();
-        this.nickname = nickname;
+        super(nickname);    
     }
-
+    
     public String getNickName() {return this.nickname;}
 
     @Override

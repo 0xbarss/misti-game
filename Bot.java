@@ -6,8 +6,8 @@ public class Bot extends Player {
     private Level level;
     private ArrayList<String> memory;
 
-    public Bot(int level) {
-        super();
+    public Bot(String nickname, int level) {
+        super(nickname);
         this.level = Level.values()[level-1];
         if (this.level == Level.EXPERT) {
             this.memory = new ArrayList<String>();

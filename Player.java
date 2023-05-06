@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
-public class Player {
-    protected ArrayList<String> hand;
-    protected ArrayList<String> storedCards;
+public abstract class Player {
+    protected String nickname;
+    protected ArrayList<String> hand, storedCards;
     protected int score;
 
-    public Player() {
+    public Player(String nickname) {
+        this.nickname = nickname;
         this.hand = new ArrayList<String>();
         this.storedCards = new ArrayList<String>();
         this.score = 0;
