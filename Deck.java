@@ -36,5 +36,12 @@ public class Deck {
         this.deck = newdeck;    
     }
 
-    public void dealCards(ArrayList<Player> players) {}
+    public void dealCards(ArrayList<Player> players) {
+        for (int i=0; i<4; i++) {
+            for (Player player: players) {
+                player.addtoHand(deck.get(deck.size()-1));
+                deck.remove(deck.size()-1);
+            }
+        }
+    }
 }
