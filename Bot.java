@@ -67,7 +67,54 @@ public class Bot extends Player {
         return selectedCard;
     }
     private String expertPlay(Score score, ArrayList<String> boardCards) {
-        return "";
+        // Calculate the total value of the cards on the board
+        int boardCardsValue = 0;
+        for (String card: boardCards) {
+            boardCardsValue += score.getCardPoint(card);
+        }
+        // Select a card in the hand if there is any valuable and suitable card to play
+        String lastCardOnBoard = boardCards.get(boardCards.size()-1);
+        String selectedCard = this.hand.get(0);
+        int selectedCardValue = score.getCardPoint(selectedCard);
+        int currentCardValue = 0;
+        boolean selected = false;
+        for (String card: this.hand) {
+            currentCardValue = score.getCardPoint(card);
+            if (card.charAt(1) == 'J' && currentCardValue > selectedCardValue) { // Play J if it exists and has more points than others
+                if (currentCardValue + boardCardsValue > 0) { // Select the card if the total value of the cards on the board is positive
+                    selectedCard = card;
+                    selectedCardValue = currentCardValue;
+                    selected = true;
+                }
+            }
+            else if (card.charAt(1) == lastCardOnBoard.charAt(1) && currentCardValue > selectedCardValue) { // Play a suitable card if it has more points than others
+                if (currentCardValue + boardCardsValue > 0) { // Select the card if the total value of the cards on the board is positive
+                    selectedCard = card;
+                    selectedCardValue = currentCardValue;
+                    selected = true;
+                }
+            }
+        }
+        // Choose the card which has the lowest value if none of the cards is suitable
+        // And the selected suit has been played less until now (<%50)
+        int suitCount = 0;
+        if (!selected) {
+            for (String card: this.hand) {
+                currentCardValue = score.getCardPoint(card);
+                if (currentCardValue < selectedCardValue) {
+                    suitCount = 0;
+                    for (String mcard: this.memory) {
+                        if (card.charAt(0) == mcard.charAt(0)) suitCount++;
+                    }
+                    if (suitCount < 7) {
+                        selectedCard = card;
+                        selectedCardValue = currentCardValue;
+                    }
+                }
+            }
+        }
+        this.hand.remove(selectedCard);
+        return selectedCard;
     }
     @Override
     public String play(Score score, ArrayList<String> boardCards) {
