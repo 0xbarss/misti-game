@@ -36,7 +36,13 @@ public class Deck {
         this.deck = newdeck;    
     }
 
-    public void dealCards(ArrayList<Player> players) {
+    public void dealCards(ArrayList<Player> players, Board board) {
+        if (deck.size() == 52) {
+            for (int i=0; i<4; i++) {
+                board.addCard(deck.get(deck.size()-1));
+                deck.remove(deck.size()-1);
+            }
+        }
         for (int i=0; i<4; i++) {
             for (Player player: players) {
                 player.addtoHand(deck.get(deck.size()-1));
