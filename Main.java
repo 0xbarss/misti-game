@@ -46,6 +46,15 @@ public class Main {
             if (deal) {
                 if (deck.getDeck().size() == 0) {
                     System.out.println("Game Over!");
+                    int bestScore = 0;
+                    Player bestPlayer = null;
+                    for (Player player: players) {
+                        if (player.getScore() > bestScore) {
+                            bestScore = player.getScore();
+                            bestPlayer = player;
+                        }
+                    }
+                    System.out.printf("The Winner is %s - %d", bestPlayer.getNickName(), bestPlayer.getScore());
                     break;
                 }
                 deck.dealCards(players, board);
@@ -55,5 +64,6 @@ public class Main {
                 board.checkCards(player, board, score);
             }
         }
+        scanner.close();
     }
 }
