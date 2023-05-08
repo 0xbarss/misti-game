@@ -1,20 +1,25 @@
 import java.util.Random;
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Bot extends Player {
-    private enum Level {NOVICE, REGULAR, EXPERT}
-    private Level level;
+    private String level;
     private ArrayList<String> memory;
 
-    public Bot(String nickname, int level) {
+    public Bot(String nickname, String level) {
         super(nickname);
-        this.level = Level.values()[level-1];
-        if (this.level == Level.EXPERT) {
+        this.level = level;
+        if (this.level.equals("E")) {
             this.memory = new ArrayList<String>();
         }
     }
 
-    public Level getLevel() {return this.level;}
+    public String getLevel() {
+        if (this.level.equals("N")) return "Novice";
+        if (this.level.equals("R")) return "Regular";
+        if (this.level.equals("E")) return "Expert";
+        return "";
+    }
     public void addToMemory(String card) {this.memory.add(card);}
     
     private String novicePlay() {
@@ -117,16 +122,16 @@ public class Bot extends Player {
         return selectedCard;
     }
     @Override
-    public String play(Score score, ArrayList<String> boardCards) {
+    public String play(Scanner sc, Score score, ArrayList<String> boardCards) {
         String card = "";
         switch (this.level) {
-            case NOVICE:
+            case "N":
                 card = novicePlay();
                 break;
-            case REGULAR:
+            case "R":
                 card = regularPlay(score, boardCards);
                 break;
-            case EXPERT:
+            case "E":
                 card = expertPlay(score, boardCards);
                 break;
         }

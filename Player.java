@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public abstract class Player {
@@ -33,13 +34,13 @@ public abstract class Player {
         if(cards.size() == 2) score = score*5;
         this.score += score;
     }
-    public void addtoStoredCards(ArrayList<String> cards, Board b, Score s) {  //takes cards and board as an argument
-        updateScore(cards, s);   //updates the score of the player.
-        storedCards.addAll(cards);   //adds the taken cards to storedcards.
+    public void addtoStoredCards(Board b, Score s) {  //takes cards and board as an argument
+        updateScore(b.getBoardCards(), s);   //updates the score of the player.
+        storedCards.addAll(b.getBoardCards());   //adds the taken cards to storedcards.
         b.clearBoard();              //cleans the board.
     }
 
-    public String play(Score score, ArrayList<String> boardCards) {
+    public String play(Scanner sc, Score score, ArrayList<String> boardCards) {
         return "";
     }
 
