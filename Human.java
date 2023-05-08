@@ -2,14 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Human extends Player {
-    private String nickname;
 
     public Human(String nickname) {
         super(nickname);    
     }
     
-    public String getNickName() {return this.nickname;}
-
     @Override
     public String play(Scanner sc, Score score, ArrayList<String> boardCards) {
         int input = 0;

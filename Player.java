@@ -13,6 +13,7 @@ public abstract class Player {
         this.score = 0;
     }
 
+    public String getNickName() {return this.nickname;}
     public ArrayList<String> getHand() {return this.hand;}
     public ArrayList<String> getStoredCards() {return this.storedCards;}
     public int getScore() {return this.score;}
