@@ -14,27 +14,34 @@ public abstract class Player {
     }
 
     public String getNickName() {return this.nickname;}
+    public String getLevel() {return "";}
     public ArrayList<String> getHand() {return this.hand;}
     public ArrayList<String> getStoredCards() {return this.storedCards;}
     public int getScore() {return this.score;}
 
+    public void addtoHand(String card) {hand.add(card);}
+
     public void printHand() {
-        System.out.println("--- Hand ---");
         for (int i=0; i<this.hand.size(); i++) {
             System.out.println((i+1)+"-"+this.hand.get(i));
         }
-        System.out.println("--- **** ---");
     }
 
-    public void addtoHand(String card) {hand.add(card);}
     public void updateScore(ArrayList<String> cards, Score s) {
         int score  = 0;
         for(String i: cards){
             score += s.getCardPoint(i);
         }
-        if(cards.size() == 2) score = score*5;
+        if(cards.size() == 2) {
+            score = score*5;
+            System.out.println(this.nickname + " made a misti!");
+        }
+        else {
+            System.out.println(this.nickname + " won the cards!");
+        }
         this.score += score;
     }
+    
     public void addtoStoredCards(Board b, Score s) {  //takes cards and board as an argument
         updateScore(b.getBoardCards(), s);   //updates the score of the player.
         storedCards.addAll(b.getBoardCards());   //adds the taken cards to storedcards.
