@@ -66,6 +66,7 @@ public class Bot extends Player {
             // Choose the card which has the lowest value if none of the cards is suitable
             if (!selected) {
                 for (String card: this.hand) {
+                    if (card.charAt(1) == 'J') continue;
                     currentCardValue = score.getCardPoint(card);
                     if (currentCardValue < selectedCardValue) {
                         selectedCard = card;
@@ -88,26 +89,45 @@ public class Bot extends Player {
         return selectedCard;
     }
 
-    private String expertPlay(Score score, ArrayList<String> boardCards, String selectedCard) {   
-        // Choose the card which has the lowest value if none of the cards is suitable
-        // And the card's rank has been played less until now
-        // The card has not to be J
-        int currentCardValue = 0;
-        int currentRankCount = 0;
-        int lowestRankCount = 0;
-        int lowestCardValue = 0;
-        for (String card: this.hand) {
-            if (card.charAt(1) == 'J') continue;
-            currentRankCount = 0;
-            currentCardValue = score.getCardPoint(card);
-            for (String mCard: memory) {
-                if (mCard.charAt(1) == card.charAt(1)) currentRankCount++;
+    private String expertPlay(Score score, ArrayList<String> boardCards) {
+        // Regular Play
+        String selectedCard = regularPlay(score, boardCards);
+
+        // If there is no match
+        if (selectedCard.charAt(1) != this.hand.get(this.hand.size()-1).charAt(1) &&
+            selectedCard.charAt(1) != 'J') {
+            // Choose the card which has the lowest value if none of the cards is suitable
+            // And the card's rank has been played less until now
+            // The card has not to be J
+            String expertCard = null;
+            int expertCardValue = 0;
+            int currentRankCount = 0;
+            int lowestRankCount = 0;
+            ArrayList<Integer> counts = new ArrayList<Integer>();
+            for (String card: this.hand) {
+                currentRankCount = 0;
+                for (String mCard: memory) {
+                    if (mCard.charAt(1) == card.charAt(1)) currentRankCount++;
+                }
+                counts.add(currentRankCount);
+                if (currentRankCount < lowestRankCount || lowestRankCount == 0) {
+                    expertCard = card;
+                    lowestRankCount = currentRankCount;
+                    expertCardValue = score.getCardPoint(expertCard);
+                }
             }
-            if (currentRankCount < lowestRankCount && currentCardValue < lowestCardValue) {
-                selectedCard = card;
-                lowestRankCount = currentRankCount;
-                lowestCardValue = currentCardValue;
+            // If there is any equal posibilities, check their card values
+            int currentCardValue = 0;
+            for (int i=0; i<counts.size(); i++) {
+                currentCardValue = score.getCardPoint(this.hand.get(i));
+                if (counts.get(i) == lowestRankCount) {
+                    if (currentCardValue < expertCardValue) {
+                        expertCard = this.hand.get(i);
+                        expertCardValue = currentCardValue;
+                    }
+                }
             }
+            selectedCard = expertCard;
         }
         return selectedCard;
     }
@@ -125,8 +145,7 @@ public class Bot extends Player {
                 this.hand.remove(card);
                 break;
             case "E":
-                card = regularPlay(score, boardCards);
-                card = expertPlay(score, boardCards, card);
+                card = expertPlay(score, boardCards);
                 this.hand.remove(card);
                 break;
         }
