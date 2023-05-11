@@ -8,13 +8,16 @@ public class Human extends Player {
     }
     
     @Override
+    public String getLevel() {return "Human";}
+
+    @Override
     public String play(Scanner sc, Score score, ArrayList<String> boardCards) {
         int input = 0;
         String selectedCard = "";
         // Ask the user to enter a card
         this.printHand();
         while (true) {
-            System.out.println("Enter a card: ");
+            System.out.print("Enter a card: ");
             try {
                 input = Integer.parseInt(sc.next());
             } catch (NumberFormatException e) {
@@ -26,6 +29,7 @@ public class Human extends Player {
         }
         // Remove the card from hand and play it
         selectedCard = this.hand.remove(input-1);
+        System.out.println(this.nickname + " played " + selectedCard);
         return selectedCard;
     }
 }
