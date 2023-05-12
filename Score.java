@@ -93,7 +93,7 @@ public class Score {
 
     public static void printScores(ArrayList<Player> players) {
         // find the best score
-        System.out.println("Game Over!");
+        System.out.println("\nGame Over!");
         int bestScore = 0;
         Player bestPlayer = null;
         for (Player player: players) {
@@ -103,7 +103,7 @@ public class Score {
                 bestPlayer = player;
             }
         }
-        System.out.printf("The Winner is %s - %d", bestPlayer.getNickName(), bestPlayer.getScore());
+        System.out.printf("\nThe Winner is %s - %d", bestPlayer.getNickName(), bestPlayer.getScore());
         int capacity = 10;
         String scoreFile = "highest_scores.txt";
         FileWriter writer = null;
