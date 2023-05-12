@@ -45,7 +45,7 @@ public class Bot extends Player {
             for (String card: this.hand) {
                 currentCardValue = score.getCardPoint(card);
                 // Play J if it exists and has more points than others
-                if (card.charAt(1) == 'J' && currentCardValue > selectedCardValue) {
+                if (card.charAt(1) == 'J') {
                     // Select the card if the total value of the cards on the board is positive
                     if (currentCardValue + boardCardsValue > 0) { 
                         selectedCard = card;
@@ -97,12 +97,12 @@ public class Bot extends Player {
         if (selectedCard.charAt(1) != this.hand.get(this.hand.size()-1).charAt(1) &&
             selectedCard.charAt(1) != 'J') {
             // Choose the card which has the lowest value if none of the cards is suitable
-            // And the card's rank has been played less until now
+            // And the card's rank has been played more until now
             // The card has not to be J
             String expertCard = null;
             int expertCardValue = 0;
             int currentRankCount = 0;
-            int lowestRankCount = 0;
+            int highestRankCount = 0;
             ArrayList<Integer> counts = new ArrayList<Integer>();
             for (String card: this.hand) {
                 currentRankCount = 0;
@@ -110,9 +110,9 @@ public class Bot extends Player {
                     if (mCard.charAt(1) == card.charAt(1)) currentRankCount++;
                 }
                 counts.add(currentRankCount);
-                if (currentRankCount < lowestRankCount || lowestRankCount == 0) {
+                if (currentRankCount > highestRankCount || highestRankCount == 0) {
                     expertCard = card;
-                    lowestRankCount = currentRankCount;
+                    highestRankCount = currentRankCount;
                     expertCardValue = score.getCardPoint(expertCard);
                 }
             }
@@ -120,7 +120,7 @@ public class Bot extends Player {
             int currentCardValue = 0;
             for (int i=0; i<counts.size(); i++) {
                 currentCardValue = score.getCardPoint(this.hand.get(i));
-                if (counts.get(i) == lowestRankCount) {
+                if (counts.get(i) == highestRankCount) {
                     if (currentCardValue < expertCardValue) {
                         expertCard = this.hand.get(i);
                         expertCardValue = currentCardValue;
