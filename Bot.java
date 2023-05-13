@@ -54,7 +54,7 @@ public class Bot extends Player {
                     }
                 }
                 // Play a suitable card if it has more points than others
-                else if (card.charAt(1) == lastCardOnBoard.charAt(1) && currentCardValue > selectedCardValue) {
+                else if (card.charAt(1) == lastCardOnBoard.charAt(1)) {
                     // Select the card if the total value of the cards on the board is positive
                     if (currentCardValue + boardCardsValue > 0) {
                         selectedCard = card;
