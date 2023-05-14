@@ -14,6 +14,7 @@ public class Main {
         ArrayList<Player> players = null;
         try {
             numberOfPlayers = Integer.parseInt(args[0]);
+            if (numberOfPlayers < 2 || numberOfPlayers > 4) throw new Exception("Invalid number of players");
             if (args.length != 3+numberOfPlayers*2) throw new Exception("Invalid argument count");
             pointsPath = args[1];
             if (!new File(pointsPath).isFile()) throw new Exception("The score file does not exist in the given path");
